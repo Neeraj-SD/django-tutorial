@@ -18,6 +18,8 @@ from django.urls import path, include
 from tutorial.quickstart import views
 from rest_framework import routers
 from rest_framework.authtoken import views
+from tutorial.views import GoogleLogin
+from rest_framework_simplejwt.views import TokenVerifyView
 
 # router = routers.DefaultRouter()
 # router.register(r'users', views.UserViewSet)
@@ -32,4 +34,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api-token-auth/', views.obtain_auth_token),
+    path('token/verify', TokenVerifyView.as_view()),
+    path('auth/google/', GoogleLogin.as_view(), name='google_login'),
+    path('__debug__/', include('debug_toolbar.urls')),
+    # path(r'^accounts/', include('allauth.urls'), name='socialaccount_signup'),
 ]
